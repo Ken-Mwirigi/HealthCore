@@ -9,3 +9,12 @@ def service(request):
 
 def starter(request):
     return render (request,'starter-page.html ')
+
+def about(request):
+    return render (request,'about.html')
+
+def doctors(request):
+    return render(request ,'doctors.html')
+
+def services(request):
+    return render(request,'services.html')
