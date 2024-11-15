@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from Gofinalapp.models import Appointment
+from Gofinalapp.models import Appointment,Contact
 # Create your views here.
 def index(request):
     return render (request,'index.html ')
@@ -36,4 +36,27 @@ def appointment(request):
     else:
         return render(request,'appointment.html')
 
+def show(request):
+    allappointments = Appointment.objects.all()
+    return render(request,'show.html',{'appointment':allappointments})
+
+def delete(request,id):
+    appoint = Appointment.objects.get(id = id)
+    appoint.delete()
+    return redirect('/show')
+
+
+def contact(request):
+    if request.method == 'POST':
+        mycontacts= Contact (
+            name=request.POST['name'],
+            email=request.POST['email'],
+            subject=request.POST['subject'],
+            message=request.POST['message']
+        )
+        mycontacts.save()
+        return redirect('/contact')
+
+    else:
+        return render(request, 'contact.html')
 
