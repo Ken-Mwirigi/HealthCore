@@ -1,8 +1,22 @@
 from django.shortcuts import render, redirect
-from Gofinalapp.models import Appointment,Contact
+from Gofinalapp.models import Appointment,Contact,User
+from Gofinalapp.forms import ContactForm
+from Gofinalapp.forms import AppointmentForm
+
 # Create your views here.
 def index(request):
-    return render (request,'index.html ')
+    if request.method == 'POST':
+        if User.objects.filter(
+            username=request.POST['username'],
+            password=request.POST['password']
+        ).exists():
+            return render(request,'index.html')
+
+        else:
+            return render(request,'login.html')
+
+    else:
+        return render(request,'login.html')
 
 def service(request):
     return render (request,'service-details.html ')
@@ -18,6 +32,8 @@ def doctors(request):
 
 def services(request):
     return render(request,'services.html')
+
+
 
 def appointment(request):
     if request.method == 'POST':
@@ -45,13 +61,13 @@ def delete(request,id):
     appoint.delete()
     return redirect('/show')
 
-
-def contact(request):
-    if request.method == 'POST':
-        mycontacts= Contact (
-            name=request.POST['name'],
-            email=request.POST['email'],
-            subject=request.POST['subject'],
+"""
+#def contact(request):
+    #if request.method == 'POST':
+     #   mycontacts= Contact (
+            #name=request.POST['name'],
+            #email=request.POST['email'],
+            #subject=request.POST['subject'],
             message=request.POST['message']
         )
         mycontacts.save()
@@ -59,4 +75,45 @@ def contact(request):
 
     else:
         return render(request, 'contact.html')
+
+"""
+""""
+def show(request):
+    allcontacts = Contact.objects.all()
+    return render(request,'show.html',{'contact':allcontacts})
+
+def delete(request,id):
+    cont = Contact.objects.get(id = id)
+    cont.delete()
+    return redirect('/show')
+    
+"""
+def editt(request,id):
+    editappoint =Appointment.objects.get(id = id)
+    return render(request,'editt.html',{'appointment':editappoint})
+
+def update(request,id):
+    updateinfo=Appointment.objects.get(id = id)
+    form=AppointmentForm(request.POST,instance=updateinfo)
+    if form.is_valid():
+        form.save()
+        return redirect('/show')
+    else:
+        return render(request,'editt.html')
+
+def register(request):
+    if request.method == 'POST':
+        members = User(
+            name = request.POST['name'],
+            username = request.POST['username'],
+            password = request.POST['password']
+        )
+        members.save()
+        return redirect('/login')
+    else:
+        return render (request,'register.html')
+
+
+def login(request):
+    return render(request,'login.html')
 

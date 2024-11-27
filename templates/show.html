@@ -1,44 +1,81 @@
 {% extends 'starter-page.html' %}
 {% load static %}
 {% block body %}
+    <h1>Messages</h1>
 	<table class="table table-info container">
     <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Action</th>
+    </tr>
+
+<!-- for loop for continious adding of columns -->
+    
+    {% for x in contact  %}
+
+        <tr>
+            <td>{{ x.name }}</td>
+            <td>{{ x.email }}</td>
+            <td>{{ x.subject }}</td>
+            <td>{{ x.message }}</td>
+
+            <td>
+                <a href="/edit/{{ x.id }}" class="btn btn-warning">EDIT </a>
+                <a href="/delete/{{ x.id }}" class="btn btn-danger">DELETE </a>
+                <a href="" class="btn btn-success">PAY </a>
+            </td>
+        </tr>
+
+
+    {% endfor %}
+
+    </table>
+    <br>
+    <hr>
+
+
+   <h1>Appointments</h1>
+     <table class="table table-info container">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
         <th>Phone</th>
-        <th>DateTime</th>
+        <th>Date</th>
         <th>Department</th>
         <th>Doctor</th>
         <th>Message</th>
         <th>Action</th>
     </tr>
 
-#for loop for continious adding of columns
-    
-    {% for x in appointment  %}
+
+<!-- for loop for continious adding of columns -->
+    {% for y in appointment  %}
 
         <tr>
-            <td>{{ x.name }}</td>
-            <td>{{ x.email }}</td>
-            <td>{{ x.phone }}</td>
-            <td>{{ x.date }}</td>
-            <td>{{ x.department }}</td>
-            <td>{{ x.doctor }}</td>
-            <td>{{ x.message }}</td>
+            <td>{{ y.name }}</td>
+            <td>{{ y.email }}</td>
+            <td>{{ y.phone }}</td>
+            <td>{{ y.date }}</td>
+            <td>{{ y.department }}</td>
+            <td>{{ y.doctor }}</td>
+            <td>{{ y.message }}</td>
+
+
+
             <td>
-                <a href="" class="btn btn-warning">EDIT </a>
-                <a href="/delete/{{ x.id }}" class="btn btn-danger">DELETE </a>
+                <a href="/editt/{{ y.id }}" class="btn btn-warning">EDIT </a>
+                <a href="/delete/{{ y.id }}" class="btn btn-danger">DELETE </a>
                 <a href="" class="btn btn-success">PAY </a>
             </td>
         </tr>
 
+
     {% endfor %}
+     </table>
 
 
 
-
-
-
-    </table>
 
 {% endblock %}
