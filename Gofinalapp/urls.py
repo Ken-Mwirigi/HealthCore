@@ -36,6 +36,8 @@ urlpatterns = [
     path('update/<int:id>', views.update, name='update'),
     path('', views.register, name='register'),
     path('login/', views.login, name='login'),
+    path('uploadimage/', views.upload_image, name='upload'),
+    path('showimage/', views.show_image, name='image'),
 
 
 

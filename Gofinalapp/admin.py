@@ -4,6 +4,7 @@ from Gofinalapp.models import Product
 from Gofinalapp.models import Appointment
 from Gofinalapp.models import Contact
 from Gofinalapp.models import User
+from Gofinalapp.models import ImageModel
 
 # Register your models here.
 admin.site.register(Members)
@@ -11,3 +12,4 @@ admin.site.register(Product)
 admin.site.register(Appointment)
 admin.site.register(Contact)
 admin.site.register(User)
+admin.site.register(ImageModel)

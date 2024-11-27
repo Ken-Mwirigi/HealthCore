@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from Gofinalapp.models import Appointment,Contact,User
-from Gofinalapp.forms import ContactForm
+from Gofinalapp.models import Appointment, Contact, User, ImageModel
+from Gofinalapp.forms import ContactForm, ImageUploadForm
 from Gofinalapp.forms import AppointmentForm
 
 # Create your views here.
@@ -116,4 +116,18 @@ def register(request):
 
 def login(request):
     return render(request,'login.html')
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/showimage')
+    else:
+        form = ImageUploadForm()
+    return render(request, 'upload_image.html', {'form': form})
+
+def show_image(request):
+    images = ImageModel.objects.all()
+    return render(request, 'show_image.html', {'images': images})
 
